@@ -60,16 +60,13 @@ const TargetBox = styled.div`
   border: 4px solid #1ac71a;
   background-color: transparent;
   z-index: 20;
+`;
 
-  &::before {
-    content: "${({ classType, score }) => `${classType} ${score.toFixed(1)}%`}";
-    color: #1ac71a;
-    font-weight: 500;
-    font-size: 17px;
-    position: absolute;
-    top: -1.5em;
-    left: -5px;
-  }
+const Label = styled.p`
+  color: #1ac71a;
+  font-weight: 500;
+  font-size: 17px;
+  margin: 2px;
 `;
 
 export function ObjectDetector(props) {
@@ -157,8 +154,11 @@ export function ObjectDetector(props) {
               width={prediction.bbox[2]}
               height={prediction.bbox[3]}
               classType={prediction.class}
-              score={prediction.score * 100}
-            />
+              score={prediction.score * 100}>
+              <Label>{`${prediction.class}  ${(prediction.score * 100).toFixed(
+                2
+              )}%`}</Label>
+            </TargetBox>
           ))}
       </DetectorContainer>
       <HiddenFileInput
